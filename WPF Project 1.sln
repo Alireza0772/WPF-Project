@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Blend for Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF Project 1", "WPF Project 1\WPF Project 1.csproj", "{ECBFEE8F-252C-44D6-B29E-A164472F9745}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "ControlLibrary\ControlLibrary.csproj", "{AB506BCD-CBBF-4C92-AB42-1E0E14249A8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECBFEE8F-252C-44D6-B29E-A164472F9745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECBFEE8F-252C-44D6-B29E-A164472F9745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECBFEE8F-252C-44D6-B29E-A164472F9745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECBFEE8F-252C-44D6-B29E-A164472F9745}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB506BCD-CBBF-4C92-AB42-1E0E14249A8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB506BCD-CBBF-4C92-AB42-1E0E14249A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB506BCD-CBBF-4C92-AB42-1E0E14249A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB506BCD-CBBF-4C92-AB42-1E0E14249A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC9958EF-9E0C-4F0E-A9B9-1512415F9D7C}
+	EndGlobalSection
+EndGlobal

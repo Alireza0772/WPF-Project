@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="WPF_Project_1.Views.BookView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="211.409"
+             d:DesignWidth="205.034">
+
+    <GroupBox Header="Book"
+              Style="{StaticResource GroupBoxStyle}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="{Binding ElementName=nameLabel, Path=ActualWidth}" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Name="nameLabel"
+                   Content="Book Name"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <Label Content="Author"
+                   Grid.Row="1"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <Label Content="Category"
+                   Grid.Row="2"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <Label Content="Publisher"
+                   Grid.Row="3"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <Label Content="Language"
+                   Grid.Row="4"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <Label Content="Genre"
+                   Grid.Row="5"
+                   Padding="10,5,5,5"
+                   Style="{StaticResource LabelStyle}" />
+            <TextBox Margin="4,8,4,8"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Style="{StaticResource TextBoxStyle}" />
+            <TextBox Margin="4,8,4,8"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="1"
+                     Style="{StaticResource TextBoxStyle}" />
+            <TextBox Margin="4,8,4,8"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="2"
+                     Style="{StaticResource TextBoxStyle}" />
+            <TextBox Margin="4,8,4,8"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="3"
+                     Style="{StaticResource TextBoxStyle}" />
+            <ComboBox   Name="BookLanguage"
+                        Margin="4,8,4,8"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="4" />
+            <TextBox Margin="4,8,4,8"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Grid.Row="5"
+                     Style="{StaticResource TextBoxStyle}" />
+            <Button     Name="BookCancelBtn"
+                        Content="Cancel"
+                        Margin="15"
+                        Grid.Row="7"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource CommonButtonStyle}" />
+            <Button     Name="BookSaveBtn"
+                        Content="Save"
+                        Margin="15"
+                        Grid.Row="7"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource CommonButtonStyle}" />
+        </Grid>
+    </GroupBox>
+</UserControl>
