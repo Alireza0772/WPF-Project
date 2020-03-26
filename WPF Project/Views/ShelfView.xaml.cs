@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_Project_1.Views
+namespace WPFProject.Views
 {
     /// <summary>
     /// Interaction logic for ShelfUC.xaml
