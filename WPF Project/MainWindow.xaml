@@ -1,9 +1,10 @@
-﻿<Window x:Class="WPFProject.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usr="clr-namespace:WPFProject.Views"
+        xmlns:local="clr-namespace:WPFProject"
+        x:Class="WPFProject.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
@@ -12,7 +13,7 @@
         MinWidth="510"
         WindowStyle="None">
     <Window.Style>
-        <Style TargetType="Window">
+        <Style TargetType="{x:Type Window}">
             <Setter Property="WindowChrome.WindowChrome">
                 <Setter.Value>
                     <WindowChrome GlassFrameThickness="2"
@@ -22,7 +23,7 @@
             </Setter>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Window">
+                    <ControlTemplate TargetType="{x:Type Window}">
                         <Grid>
                             <Grid.Background>
                                 <SolidColorBrush Color="{StaticResource Window.Black}" />
@@ -40,30 +41,32 @@
                                     Grid.ColumnSpan="3">
                                 <ContentPresenter Content="{TemplateBinding Content}" />
                             </Border>
-                            <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}"
+                            <TextBlock Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}"
                                        Foreground="{StaticResource Label.Normal.Foreground}"
                                        VerticalAlignment="Top"
                                        Grid.Column="1"
                                        HorizontalAlignment="Center"
                                        Margin="36,10,0,0" />
-                            <Image Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Icon}"
+                            <Image Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
-                                   Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(WindowChrome.WindowChrome).ResizeBorderThickness}"
+                                   Margin="{Binding (WindowChrome.WindowChrome).ResizeBorderThickness, RelativeSource={RelativeSource TemplatedParent}}"
                                    Width="{x:Static SystemParameters.SmallIconWidth}"
                                    WindowChrome.IsHitTestVisibleInChrome="True" />
                             <Grid Grid.Column="2"
-                                  FlowDirection="RightToLeft" Margin="8">
+                                  FlowDirection="RightToLeft"
+                                  Margin="8">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button Name="ExitButton"
+                                <Button x:Name="ExitButton"
                                         Click="ExitButton_Click"
                                         VerticalAlignment="Center"
                                         Margin="4"
-                                        Style="{StaticResource HeaderButtonStyle}"
+                                        Style="{StaticResource ExitButtonStyle}"
                                         Background="#FFD35454"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                     <Path Data="M0,0 L8,8 M0,8 L8,0"
@@ -73,32 +76,35 @@
                                           StrokeStartLineCap="Round"
                                           StrokeEndLineCap="Round" />
                                 </Button>
-                                <Button Name="MaximizeButton"
+                                <Button x:Name="MaximizeButton"
                                         VerticalAlignment="Center"
                                         Margin="4"
-                                        Click="MaximizeButton_Click"
                                         Grid.Column="1"
-                                        Style="{StaticResource HeaderButtonStyle}"
-                                        Background="#FF49C354"
+                                        Style="{StaticResource MaximizeButtonStyle}"
+                                        Background="#FF595959"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                     <Path Data="M 0,0 0,8 8,8 8,0 0,0"
                                           Stroke="Black"
                                           StrokeThickness="2"
-                                          Stretch="Uniform"
+                                          Stretch="UniformToFill"
                                           StrokeLineJoin="Round"
                                           StrokeStartLineCap="Round"
                                           StrokeEndLineCap="Round"
                                           StrokeDashCap="Round" />
                                 </Button>
-                                <Button Name="MinimizeButton"
+                                <Button x:Name="MinimizeButton"
+                                        VerticalAlignment="Center"
                                         Margin="4"
-                                        Style="{StaticResource HeaderButtonStyle}"
-                                        Click="MinimizeButton_Click"
                                         Grid.Column="2"
+                                        Style="{StaticResource MinimizeButtonStyle}"
                                         WindowChrome.IsHitTestVisibleInChrome="True">
                                     <Path Data="M 0,0 8,0"
+                                          Height="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                                           Stroke="Black"
-                                          StrokeThickness="2" />
+                                          StrokeThickness="2"
+                                          StrokeStartLineCap="Round"
+                                          StrokeEndLineCap="Round"
+                                          Stretch="UniformToFill" />
                                 </Button>
                             </Grid>
                         </Grid>
@@ -113,7 +119,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        <usr:LibraryView Margin="10"
+        <usr:LibraryView Margin="20,0,10,20"
                          Grid.Row="1">
             <usr:LibraryView.Effect>
                 <DropShadowEffect />
@@ -121,14 +127,14 @@
         </usr:LibraryView>
         <usr:ShelfView Grid.Column="1"
                        Grid.Row="1"
-                       Margin="10">
+                       Margin="10,0,10,20">
             <usr:ShelfView.Effect>
                 <DropShadowEffect />
             </usr:ShelfView.Effect>
         </usr:ShelfView>
         <usr:BookView Grid.Column="2"
                       Grid.Row="1"
-                      Margin="10">
+                      Margin="10,0,20,20">
             <usr:BookView.Effect>
                 <DropShadowEffect />
             </usr:BookView.Effect>
