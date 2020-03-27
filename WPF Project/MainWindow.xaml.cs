@@ -29,15 +29,5 @@ namespace WPFProject
         {
             Application.Current.Shutdown();
         }
-
-        private void MaximizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Maximized;
-        }
-
-        private void MinimizeButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
     }
 }
