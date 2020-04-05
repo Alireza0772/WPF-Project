@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{ECBFEE8F-252C-44D6-B29E-A164472F9745}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>WPF_Project</RootNamespace>
+    <RootNamespace>WPFProject</RootNamespace>
     <AssemblyName>WPF Project</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -71,6 +71,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Book.cs" />
+    <Compile Include="Models\Library.cs" />
+    <Compile Include="Models\ManagerData.cs" />
+    <Compile Include="Models\Shelf.cs" />
+    <Compile Include="ViewModels\DataAdabterViewModel.cs" />
     <Compile Include="Views\BookView.xaml.cs">
       <DependentUpon>BookView.xaml</DependentUpon>
     </Compile>
@@ -149,5 +154,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
