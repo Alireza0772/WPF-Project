@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace WPFProject.Models
 {
-    class Book
+    class Book : ModelBase
     {
+        #region enums
         public enum BookCategory
         {
             Educational,
@@ -23,12 +24,66 @@ namespace WPFProject.Models
             Deutch,
             Spanish
         }
+        #endregion
 
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public BookCategory Category { get; set; }
-        public string Publisher { get; set; }
-        public BookLanguage Language { get; set; }
-        public Shelf Shelf { get; set; }
+        #region fields
+        private string name;
+        private string author;
+        private BookCategory category;
+        private string publisher;
+        private BookLanguage language;
+        private Shelf shelf;
+        #endregion
+
+        #region properties
+        public string Name
+        {
+            get => name;
+            set {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+        public string Author
+        {
+            get => author;
+            set {
+                author = value;
+                OnPropertyChanged(nameof(Author));
+            }
+        }
+        public BookCategory Category
+        {
+            get => category;
+            set {
+                category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+        public string Publisher
+        {
+            get => publisher;
+            set {
+                publisher = value;
+                OnPropertyChanged(nameof(Publisher));
+            }
+        }
+        public BookLanguage Language
+        {
+            get => language;
+            set {
+                language = value;
+                OnPropertyChanged(nameof(Language));
+            }
+        }
+        public Shelf Shelf
+        {
+            get => shelf;
+            set {
+                shelf = value;
+                OnPropertyChanged(nameof(Shelf));
+            }
+        } 
+        #endregion
     }
 }
