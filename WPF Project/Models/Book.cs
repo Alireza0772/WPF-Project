@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WPFProject.Models
 {
-    class Book : ModelBase
+    public class Book : ModelBase
     {
         #region enums
         public enum BookCategory
@@ -41,7 +41,7 @@ namespace WPFProject.Models
             get => name;
             set {
                 name = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged();
             }
         }
         public string Author
@@ -49,7 +49,7 @@ namespace WPFProject.Models
             get => author;
             set {
                 author = value;
-                OnPropertyChanged(nameof(Author));
+                OnPropertyChanged();
             }
         }
         public BookCategory Category
@@ -57,7 +57,7 @@ namespace WPFProject.Models
             get => category;
             set {
                 category = value;
-                OnPropertyChanged(nameof(Category));
+                OnPropertyChanged();
             }
         }
         public string Publisher
@@ -65,7 +65,7 @@ namespace WPFProject.Models
             get => publisher;
             set {
                 publisher = value;
-                OnPropertyChanged(nameof(Publisher));
+                OnPropertyChanged();
             }
         }
         public BookLanguage Language
@@ -73,7 +73,7 @@ namespace WPFProject.Models
             get => language;
             set {
                 language = value;
-                OnPropertyChanged(nameof(Language));
+                OnPropertyChanged();
             }
         }
         public Shelf Shelf
@@ -81,9 +81,35 @@ namespace WPFProject.Models
             get => shelf;
             set {
                 shelf = value;
-                OnPropertyChanged(nameof(Shelf));
+                OnPropertyChanged();
             }
-        } 
+        }
         #endregion
+        protected override void Validate(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Name":
+                    if (String.IsNullOrEmpty(Name))
+                        Error = "Name is a required field!";
+                    else if (!Name.All(c=>char.IsLetter(c)))
+                        Error = "Name field Only accepts alphabets";
+                    break;
+                case "Author":
+                    if (String.IsNullOrEmpty(Name))
+                        Error = "Author is a required field!";
+                    else if (!Name.All(c => char.IsLetter(c)))
+                        Error = "Author field Only accepts alphabets";
+                    break;
+                case "Publisher":
+                    if (String.IsNullOrEmpty(Name))
+                        Error = "Publisher is a required field!";
+                    else if (!Name.All(c => char.IsLetter(c)))
+                        Error = "Publisher field Only accepts alphabets";
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

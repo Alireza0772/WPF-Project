@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPFProject.Models
 {
-    class Shelf : ModelBase
+    public class Shelf : ModelBase
     {
         #region fields
         private int bookCount;
@@ -24,7 +24,7 @@ namespace WPFProject.Models
             get => bookCount;
             set {
                 bookCount = value;
-                OnPropertyChanged(nameof(BookCount));
+                OnPropertyChanged();
             }
         }
         public string Position
@@ -32,7 +32,7 @@ namespace WPFProject.Models
             get => position;
             set {
                 position = value;
-                OnPropertyChanged(nameof(Position));
+                OnPropertyChanged();
             }
         }
         public int Level
@@ -40,7 +40,7 @@ namespace WPFProject.Models
             get => level;
             set {
                 level = value;
-                OnPropertyChanged(nameof(Level));
+                OnPropertyChanged();
             }
         }
         public int Floor
@@ -48,7 +48,7 @@ namespace WPFProject.Models
             get => floor;
             set {
                 floor = value;
-                OnPropertyChanged(nameof(Floor));
+                OnPropertyChanged();
             }
         }
         public Library Library
@@ -56,7 +56,7 @@ namespace WPFProject.Models
             get => library;
             set {
                 library = value;
-                OnPropertyChanged(nameof(Library));
+                OnPropertyChanged();
             }
         }
         public ObservableCollection<Book> Books
@@ -72,6 +72,20 @@ namespace WPFProject.Models
         private void OnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             OnPropertyChanged();
+        }
+        protected override void Validate(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Position":
+                    if (String.IsNullOrEmpty(Position))
+                        Error = "Position is a required field!";
+                    else if (!Position.All(c => char.IsLetter(c)))
+                        Error = "Position field Only accepts alphabets";
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

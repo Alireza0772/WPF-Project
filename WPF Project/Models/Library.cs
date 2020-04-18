@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace WPFProject.Models
 {
-    class Library:ModelBase
+    public class Library : ModelBase
     {
         #region fields
         private string name;
@@ -24,7 +24,7 @@ namespace WPFProject.Models
             get => name;
             set {
                 name = value;
-                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged();
             }
         }
         public string Address
@@ -32,7 +32,7 @@ namespace WPFProject.Models
             get => address;
             set {
                 address = value;
-                OnPropertyChanged(nameof(Address));
+                OnPropertyChanged();
             }
         }
         public string Tell
@@ -40,7 +40,7 @@ namespace WPFProject.Models
             get => tell;
             set {
                 tell = value;
-                OnPropertyChanged(nameof(Tell));
+                OnPropertyChanged();
             }
         }
         public string Website
@@ -48,7 +48,7 @@ namespace WPFProject.Models
             get => website;
             set {
                 website = value;
-                OnPropertyChanged(nameof(Website));
+                OnPropertyChanged();
             }
         }
         public bool HasTables
@@ -56,7 +56,7 @@ namespace WPFProject.Models
             get => hasTables;
             set {
                 hasTables = value;
-                OnPropertyChanged(nameof(HasTables));
+                OnPropertyChanged();
             }
         }
         public ObservableCollection<Shelf> Shelves
@@ -66,7 +66,7 @@ namespace WPFProject.Models
                 shelves = value;
                 shelves.CollectionChanged += OnCollectionChanged;
             }
-        } 
+        }
         #endregion
 
         private void OnCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

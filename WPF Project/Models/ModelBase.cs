@@ -8,8 +8,23 @@ using System.Threading.Tasks;
 
 namespace WPFProject.Models
 {
-    class ModelBase : INotifyPropertyChanged
+    public class ModelBase : INotifyPropertyChanged, IDataErrorInfo
     {
+        public string this[string propertyName] 
+        {
+            get {
+                Validate(propertyName);
+                return Error;
+            }
+        }
+
+        public string Error { get; protected set; }
+
+        protected virtual void Validate(string propertyName)
+        {
+            Error = null;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {

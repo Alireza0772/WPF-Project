@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usr="clr-namespace:WPFProject.Views"
         xmlns:local="clr-namespace:WPFProject"
-        x:Class="WPFProject.MainWindow"
+        x:Class="WPFProject.Views.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
