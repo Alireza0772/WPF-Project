@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Library xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Name>asdq</Name>
+  <Address>aszz</Address>
+  <Tell>wwwe</Tell>
+  <Website>as</Website>
+  <HasTables>true</HasTables>
+  <Shelves>
+    <Shelf>
+      <BookCount>32</BookCount>
+      <Position>aqwecsdfsdf</Position>
+      <Level>12</Level>
+      <Floor>3</Floor>
+      <Books>
+        <Book>
+          <Name>aazx</Name>
+          <Author>xccvv</Author>
+          <Category>aqqq</Category>
+          <Publisher>awe</Publisher>
+          <Language>English</Language>
+        </Book>
+      </Books>
+    </Shelf>
+  </Shelves>
+</Library>

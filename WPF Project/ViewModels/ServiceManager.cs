@@ -8,6 +8,7 @@ using System.Windows.Input;
 using WPFProject.Models;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
 
 namespace WPFProject.ViewModels
 {
@@ -27,43 +28,47 @@ namespace WPFProject.ViewModels
 
         private ServiceManager()
         {
+            xmlSerializer = new XmlSerializer(typeof(Library));
         }
-        public async Task Load()
+        public void Load()
         {
+            using (TextReader reader = new StreamReader(@"C:\Users\Alireza\Desktop\aaa.xml"))
+            {
+                library = (Library)xmlSerializer.Deserialize(reader);
+            }
             isLoaded = true;
         }
-        public async Task Save()
+        public void Save()
         {
-        }
-        public Task<ObservableCollection<Book>> GetBooks()
-        {
-            return new Task<ObservableCollection<Book>>(() =>
+            using (TextWriter writer = new StreamWriter(@"C:\Users\Alireza\Desktop\aaa.xml"))
             {
-                while (!isLoaded)
-                {
-                }
-                return library.Shelves.Last().Books;
-            });
+                xmlSerializer.Serialize(writer, library);
+            }
         }
-        public Task<ObservableCollection<Shelf>> GetShelves()
+        public ObservableCollection<Book> GetBooks()
         {
-            return new Task<ObservableCollection<Shelf>>(() =>
+
+            if (!isLoaded)
             {
-                while (!isLoaded)
-                {
-                }
-                return library.Shelves;
-            });
+                Load();
+            }
+            return library.Shelves.Last().Books;
         }
-        public Task<Library> GetLibrary()
+        public ObservableCollection<Shelf> GetShelves()
         {
-            return new Task<Library>(() =>
+            if (!isLoaded)
             {
-                while (!isLoaded)
-                {
-                }
-                return library;
-            });
+                Load();
+            }
+            return library.Shelves;
+        }
+        public Library GetLibrary()
+        {
+            if (!isLoaded)
+            {
+                Load();
+            }
+            return library;
         }
     }
 }

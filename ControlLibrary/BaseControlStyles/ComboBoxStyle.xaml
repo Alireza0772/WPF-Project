@@ -119,7 +119,7 @@
                                     </Border.Background>
                                 </Border>
                                 <ScrollViewer Margin="4,6,4,6"
-                                              SnapsToDevicePixels="True">
+                                              SnapsToDevicePixels="True" VerticalScrollBarVisibility="Hidden">
                                     <StackPanel IsItemsHost="True"
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>

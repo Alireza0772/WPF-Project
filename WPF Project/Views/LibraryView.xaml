@@ -51,22 +51,30 @@
                      Grid.ColumnSpan="3"
                      Grid.Row="0"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" />
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Library.Name, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True, Mode=TwoWay}"
+                     ToolTip="{Binding Library.ErrorCollection[Name]}" />
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="1"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" />
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Library.Address, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding Library.ErrorCollection[Address]}" />
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="2"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" />
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Library.Tell, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding Library.ErrorCollection[Tell]}"/>
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="3"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" />
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Library.Website, UpdateSourceTrigger=PropertyChanged,ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding Library.ErrorCollection[Website]}"/>
             <CheckBox x:Name="LibraryHasTablesCheckBox"
                       Grid.Column="1"
                       Grid.ColumnSpan="3"
@@ -74,7 +82,8 @@
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
                       Margin="4,8,4,8"
-                      Style="{StaticResource CheckBoxStyle}" />
+                      Style="{StaticResource CheckBoxStyle}"
+                      IsChecked="{Binding Library.HasTables, UpdateSourceTrigger=PropertyChanged}" />
             <Button x:Name="LibraryCancelButton"
                     Content="Select"
                     Margin="15"
@@ -82,7 +91,8 @@
                     Grid.ColumnSpan="2"
                     IsDefault="True"
                     VerticalAlignment="Center"
-                    Style="{StaticResource CommonButtonStyle}" />
+                    Style="{StaticResource CommonButtonStyle}"
+                    Command="{Binding LoadCommand}"/>
             <Button x:Name="LibrarySaveButton"
                     Content="Save"
                     Margin="15"
@@ -90,7 +100,8 @@
                     Grid.Column="2"
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Center"
-                    Style="{StaticResource CommonButtonStyle}" />
+                    Style="{StaticResource CommonButtonStyle}"
+                    Command="{Binding SaveCommand}"/>
         </Grid>
     </GroupBox>
 </UserControl>

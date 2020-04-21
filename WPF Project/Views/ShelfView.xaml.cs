@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFProject.ViewModels;
 
 namespace WPFProject.Views
 {
@@ -23,6 +24,7 @@ namespace WPFProject.Views
         public ShelfView()
         {
             InitializeComponent();
+            DataContext = new ShelfViewModel();
         }
     }
 }

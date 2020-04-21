@@ -27,16 +27,12 @@ namespace WPFProject.ViewModels
         {
             LoadBook();
             LoadCommand = new RelayCommand(x => LoadBook(), x => CanLoad());
-            SaveCommand = new RelayCommand(x => SaveBook(), x => CanSave());
+            SaveCommand = new RelayCommand(x => ServiceManager.Save(), x => CanSave());
         }
 
-        private async void LoadBook()
+        private void LoadBook()
         {
-            book = (await ServiceManager.GetBooks()).Last();
-        }
-        private async void SaveBook()
-        {
-            await ServiceManager.Save();
+            book = ServiceManager.GetBooks().Last();
         }
         private bool CanLoad()
         {
@@ -44,7 +40,7 @@ namespace WPFProject.ViewModels
         }
         private bool CanSave()
         {
-            return true;
+            return Book.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value));
         }
     }
 }

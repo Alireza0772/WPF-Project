@@ -73,5 +73,45 @@ namespace WPFProject.Models
         {
             OnPropertyChanged();
         }
+        protected override void Validate(string propertyName)
+        {
+            switch (propertyName)
+            {
+                case "Name":
+                    if (string.IsNullOrEmpty(Name))
+                        Error = "Name is a required field!";
+                    else if (!Name.All(c => char.IsLetter(c)))
+                        Error = "Name field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                case "Address":
+                    if (string.IsNullOrEmpty(Address))
+                        Error = "Address is a required field!";
+                    else if (!Address.All(c => char.IsLetter(c)))
+                        Error = "Address field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                case "Tell":
+                    if (string.IsNullOrEmpty(Tell))
+                        Error = "Tell is a required field!";
+                    else if (!Tell.All(c => char.IsLetter(c)))
+                        Error = "Tell field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                case "Website":
+                    if (string.IsNullOrEmpty(Website))
+                        Error = "Website is a required field!";
+                    else if (!Website.All(c => char.IsLetter(c)))
+                        Error = "Website field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

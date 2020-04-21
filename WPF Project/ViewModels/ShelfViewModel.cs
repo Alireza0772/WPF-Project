@@ -20,15 +20,11 @@ namespace WPFProject.ViewModels
         {
             LoadShelf();
             LoadCommand = new RelayCommand(x => LoadShelf(), x => CanLoad());
-            SaveCommand = new RelayCommand(x => SaveShelf(), x => CanSave());
+            SaveCommand = new RelayCommand(x => ServiceManager.Save(), x => CanSave());
         }
-        private async void LoadShelf()
+        private void LoadShelf()
         {
-            shelf = (await ServiceManager.GetShelves()).Last();
-        }
-        private async void SaveShelf()
-        {
-            await ServiceManager.Save();
+            shelf = ServiceManager.GetShelves().Last();
         }
         private bool CanLoad()
         {
@@ -36,7 +32,7 @@ namespace WPFProject.ViewModels
         }
         private bool CanSave()
         {
-            return true;
+            return Shelf.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value));
         }
     }
 }

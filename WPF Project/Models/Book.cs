@@ -9,14 +9,6 @@ namespace WPFProject.Models
     public class Book : ModelBase
     {
         #region enums
-        public enum BookCategory
-        {
-            Educational,
-            Scifi,
-            Horror,
-            Romance,
-            Poem
-        }
         public enum BookLanguage
         {
             English,
@@ -29,8 +21,9 @@ namespace WPFProject.Models
         #region fields
         private string name;
         private string author;
-        private BookCategory category;
+        private string category;
         private string publisher;
+        public string genre;
         private BookLanguage language;
         private Shelf shelf;
         #endregion
@@ -52,7 +45,7 @@ namespace WPFProject.Models
                 OnPropertyChanged();
             }
         }
-        public BookCategory Category
+        public string Category
         {
             get => category;
             set {
@@ -76,6 +69,14 @@ namespace WPFProject.Models
                 OnPropertyChanged();
             }
         }
+        public string Genre
+        {
+            get => genre;
+            set {
+                genre = value;
+                OnPropertyChanged();
+            }
+        }
         public Shelf Shelf
         {
             get => shelf;
@@ -90,22 +91,44 @@ namespace WPFProject.Models
             switch (propertyName)
             {
                 case "Name":
-                    if (String.IsNullOrEmpty(Name))
+                    if (string.IsNullOrEmpty(Name))
                         Error = "Name is a required field!";
-                    else if (!Name.All(c=>char.IsLetter(c)))
+                    else if (!Name.All(c => char.IsLetter(c)))
                         Error = "Name field Only accepts alphabets";
+                    else
+                        Error = null;
                     break;
                 case "Author":
-                    if (String.IsNullOrEmpty(Name))
+                    if (string.IsNullOrEmpty(Author))
                         Error = "Author is a required field!";
-                    else if (!Name.All(c => char.IsLetter(c)))
+                    else if (!Author.All(c => char.IsLetter(c)))
                         Error = "Author field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                case "Category":
+                    if (string.IsNullOrEmpty(category))
+                        Error = "Category is a required field!";
+                    else if (!Category.All(c => char.IsLetter(c)))
+                        Error = "Category field Only accepts alphabets";
+                    else
+                        Error = null;
                     break;
                 case "Publisher":
-                    if (String.IsNullOrEmpty(Name))
+                    if (string.IsNullOrEmpty(Publisher))
                         Error = "Publisher is a required field!";
-                    else if (!Name.All(c => char.IsLetter(c)))
+                    else if (!Publisher.All(c => char.IsLetter(c)))
                         Error = "Publisher field Only accepts alphabets";
+                    else
+                        Error = null;
+                    break;
+                case "Genre":
+                    if (string.IsNullOrEmpty(Genre))
+                        Error = "Genre is a required field!";
+                    else if (!Genre.All(c => char.IsLetter(c)))
+                        Error = "Genre field Only accepts alphabets";
+                    else
+                        Error = null;
                     break;
                 default:
                     break;

@@ -9,12 +9,10 @@
              d:DesignHeight="450"
              d:DesignWidth="800">
     <UserControl.Resources>
-        <vm:ShelfViewModel x:Key="ShelfDataContext"/>
         <local:NumberValidationRule x:Key="NumberValidationRule" />
     </UserControl.Resources>
     <GroupBox Header="Shelf"
-              Style="{StaticResource GroupBoxStyle}"
-              DataContext="{StaticResource ShelfDataContext}">
+              Style="{StaticResource GroupBoxStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -66,7 +64,8 @@
                      Grid.Row="1"
                      Margin="4,8,4,8"
                      Style="{StaticResource TextBoxStyle}" 
-                     Text="{Binding Shelf.Position, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                     Text="{Binding Shelf.Position, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     ToolTip="{Binding Shelf.ErrorCollection[Position]}"/>
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="2"
@@ -88,8 +87,11 @@
                     Margin="4,8,4,8"
                     IsMoveToPointEnabled="True"
                     IsSnapToTickEnabled="True"
+                    
                     Style="{StaticResource SliderStyle}" 
-                    Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"/>
+                    Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"
+                    Maximum="100"
+                    LargeChange="10" />
             <Button Name="LibraryCancelButton"
                     Content="Cancel"
                     Margin="15"

@@ -54,37 +54,43 @@
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Name,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Book.Name,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding Book.ErrorCollection[Name]}"/>
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="1"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Author,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Book.Author,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding Book.ErrorCollection[Author]}" />
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="2"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Category,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Book.Category,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding Book.ErrorCollection[Category]}" />
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="3"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Publisher,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Book.Publisher,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding Book.ErrorCollection[Publisher]}" />
             <ComboBox   Name="BookLanguage"
                         Margin="4,8,4,8"
                         Grid.Column="1"
                         Grid.ColumnSpan="3"
                         Grid.Row="4"
-                        ItemsSource="{Binding AvailableLanguages}" />
+                        ItemsSource="{Binding AvailableLanguages}"
+                        SelectedItem="{Binding Book.Language,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="5"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Category,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
+                     Text="{Binding Book.Genre,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
+                     ToolTip="{Binding Book.ErrorCollection[Genre]}" />
             <Button     Name="BookCancelBtn"
                         Content="Cancel"
                         Margin="15"

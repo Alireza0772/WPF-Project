@@ -78,10 +78,12 @@ namespace WPFProject.Models
             switch (propertyName)
             {
                 case "Position":
-                    if (String.IsNullOrEmpty(Position))
+                    if (string.IsNullOrEmpty(Position))
                         Error = "Position is a required field!";
                     else if (!Position.All(c => char.IsLetter(c)))
                         Error = "Position field Only accepts alphabets";
+                    else
+                        Error = null;
                     break;
                 default:
                     break;

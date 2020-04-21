@@ -19,16 +19,12 @@ namespace WPFProject.ViewModels
         {
             LoadLibrary();
             LoadCommand = new RelayCommand(x => LoadLibrary(), x => CanLoad());
-            SaveCommand = new RelayCommand(x => SaveLibrary(), x => CanSave());
+            SaveCommand = new RelayCommand(x => ServiceManager.Save(), x => CanSave());
         }
 
-        private async void LoadLibrary()
+        private void LoadLibrary()
         {
-            library = await ServiceManager.GetLibrary();
-        }
-        private async void SaveLibrary()
-        {
-            await ServiceManager.Save();
+            library = ServiceManager.GetLibrary();
         }
         private bool CanLoad()
         {
@@ -36,7 +32,7 @@ namespace WPFProject.ViewModels
         }
         private bool CanSave()
         {
-            return true;
+            return Library.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value));
         }
     }
 }
