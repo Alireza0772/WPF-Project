@@ -32,7 +32,9 @@ namespace WPFProject.ViewModels
         }
         private bool CanSave()
         {
-            return Library.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value));
+            return Library.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value))&&
+                Library.Shelves.All(s=>s.ErrorCollection.All(k=>string.IsNullOrEmpty(k.Value))&&
+                s.Books.All(b =>b.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value))));
         }
     }
 }

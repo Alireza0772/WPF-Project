@@ -36,6 +36,14 @@ namespace WPFProject.ViewModels
             {
                 library = (Library)xmlSerializer.Deserialize(reader);
             }
+            foreach (var shelf in library.Shelves)
+            {
+                shelf.Library = library;
+                foreach (var book in shelf.Books)
+                {
+                    book.Shelf = shelf;
+                }
+            }
             isLoaded = true;
         }
         public void Save()

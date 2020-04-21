@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace WPFProject.Models
 {
@@ -77,6 +78,7 @@ namespace WPFProject.Models
                 OnPropertyChanged();
             }
         }
+        [XmlIgnore]
         public Shelf Shelf
         {
             get => shelf;

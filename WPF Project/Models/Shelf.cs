@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace WPFProject.Models
 {
@@ -51,6 +52,7 @@ namespace WPFProject.Models
                 OnPropertyChanged();
             }
         }
+        [XmlIgnore]
         public Library Library
         {
             get => library;
