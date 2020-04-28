@@ -24,7 +24,6 @@ namespace WPFProject.Views
         public ShelfView()
         {
             InitializeComponent();
-            DataContext = new ShelfViewModel();
         }
     }
 }

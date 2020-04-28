@@ -24,7 +24,6 @@ namespace WPFProject.Views
         public LibraryView()
         {
             InitializeComponent();
-            DataContext = new LibraryViewModel();
         }
     }
 }

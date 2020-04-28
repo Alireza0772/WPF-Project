@@ -9,20 +9,29 @@ using WPFProject.Models;
 using System.Xml.Serialization;
 using System.Collections.ObjectModel;
 using Microsoft.Win32;
+using System.Xml.Linq;
+using System.Diagnostics;
+using System.Text;
 
 namespace WPFProject.ViewModels
 {
     public class ServiceManager
     {
         private static ServiceManager instance;
-        XmlSerializer xmlSerializer;
-        Library library;
+
+        XDocument xmlDocument;
+        private XmlSerializer xmlSerializer;
         private bool isLoaded = false;
 
-        public static ServiceManager That
+        public Library Library { get; set; }
+        public static ServiceManager Instance
         {
             get {
-                return instance ?? (instance = new ServiceManager());
+                if (instance == null)
+                {
+                    instance = new ServiceManager();
+                }
+                return instance;
             }
         }
 
@@ -30,45 +39,39 @@ namespace WPFProject.ViewModels
         {
             xmlSerializer = new XmlSerializer(typeof(Library));
         }
+
         public void Load()
         {
-            using (TextReader reader = new StreamReader(@"C:\Users\Alireza\Desktop\aaa.xml"))
+            try
             {
-                library = (Library)xmlSerializer.Deserialize(reader);
+                xmlDocument = XDocument.Load(Environment.CurrentDirectory + @"\data.xml");
+                XElement xElement = xmlDocument.Descendants("Library").Single();
+                Library = (Library)xmlSerializer.Deserialize(xElement.CreateReader());
             }
-            foreach (var shelf in library.Shelves)
+            catch (Exception)
             {
-                shelf.Library = library;
-                foreach (var book in shelf.Books)
+                Library = new Library();
+                Library.Shelves = new List<Shelf> { new Shelf()};
+                Library.Shelves[0].Books = new List<Book> { new Book() };
+                XElement x;
+                using (var memoryStream = new MemoryStream())
                 {
-                    book.Shelf = shelf;
+                    using (TextWriter streamWriter = new StreamWriter(memoryStream))
+                    {
+                        xmlSerializer.Serialize(streamWriter, Library);
+                        x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
+                    }
                 }
+                xmlDocument = new XDocument(x);
+                xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
             }
             isLoaded = true;
         }
-        public void Save()
+        public void Save(XElement element)
         {
-            using (TextWriter writer = new StreamWriter(@"C:\Users\Alireza\Desktop\aaa.xml"))
-            {
-                xmlSerializer.Serialize(writer, library);
-            }
-        }
-        public ObservableCollection<Book> GetBooks()
-        {
-
-            if (!isLoaded)
-            {
-                Load();
-            }
-            return library.Shelves.Last().Books;
-        }
-        public ObservableCollection<Shelf> GetShelves()
-        {
-            if (!isLoaded)
-            {
-                Load();
-            }
-            return library.Shelves;
+            XElement changedElement = xmlDocument.Descendants(element.Name).Single();
+            changedElement.ReplaceWith(element);
+            xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
         }
         public Library GetLibrary()
         {
@@ -76,7 +79,7 @@ namespace WPFProject.ViewModels
             {
                 Load();
             }
-            return library;
+            return Library;
         }
     }
 }

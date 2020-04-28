@@ -19,17 +19,14 @@ namespace WPFProject
             this.canExecute = canExecute;
         }
 
-
-
+        public event EventHandler CanExecuteChanged;
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, new EventArgs());
+        }
         public bool CanExecute(object parameter)
         {
             return canExecute == null ? true : canExecute(parameter);
-        }
-
-        public event EventHandler CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
         }
         public void Execute(object parameter)
         {

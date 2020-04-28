@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 using WPFProject.Models;
 
 namespace WPFProject.ViewModels
 {
+
     class BookViewModel : ViewModelBase
     {
-        private Book book;
-
-        public Book Book
-        {
-            get { return book; }
-        }
-
+        public Book Book { get; private set; }
         public IEnumerable<Book.BookLanguage> AvailableLanguages
         {
             get {
@@ -25,14 +22,33 @@ namespace WPFProject.ViewModels
         }
         public BookViewModel()
         {
-            LoadBook();
             LoadCommand = new RelayCommand(x => LoadBook(), x => CanLoad());
-            SaveCommand = new RelayCommand(x => ServiceManager.Save(), x => CanSave());
+            SaveCommand = new RelayCommand(x => SaveBook(), x => CanSave());
+            LoadBook();
+            Book.PropertyChanged += Book_PropertyChanged;
         }
 
+        private void Book_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            (SaveCommand as RelayCommand).RaiseCanExecuteChanged();
+        }
         private void LoadBook()
         {
-            book = ServiceManager.GetBooks().Last();
+            Book = ServiceManager.Instance.Library.Shelves[0].Books.First();
+        }
+        private void SaveBook()
+        {
+            XElement x;
+            using (var memoryStream = new MemoryStream())
+            {
+                using (TextWriter streamWriter = new StreamWriter(memoryStream))
+                {
+                    var xmlSerializer = new XmlSerializer(typeof(Book));
+                    xmlSerializer.Serialize(streamWriter, Book);
+                    x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
+                }
+            }
+            ServiceManager.Instance.Save(x);
         }
         private bool CanLoad()
         {
@@ -40,9 +56,7 @@ namespace WPFProject.ViewModels
         }
         private bool CanSave()
         {
-            return Book.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value)) && 
-                Book.Shelf.ErrorCollection.All(k => string.IsNullOrEmpty(k.Value))&&
-                Book.Shelf.Library.ErrorCollection.All(k=>string.IsNullOrEmpty(k.Value));
+            return Book.ErrorCollection.All(x => string.IsNullOrEmpty(x.Value));
         }
     }
 }

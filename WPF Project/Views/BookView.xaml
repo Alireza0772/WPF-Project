@@ -7,8 +7,12 @@
              mc:Ignorable="d"
              d:DesignHeight="302.626"
              d:DesignWidth="250.13">
+    <UserControl.Resources>
+        <vm:BookViewModel x:Key="dataContext" />
+    </UserControl.Resources>
     <GroupBox Header="Book"
-              Style="{StaticResource GroupBoxStyle}">
+              Style="{StaticResource GroupBoxStyle}"
+              DataContext="{StaticResource dataContext}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -54,29 +58,25 @@
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Name,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{Binding Book.ErrorCollection[Name]}"/>
+                     Text="{Binding Book.Name,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="1"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Author,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{Binding Book.ErrorCollection[Author]}" />
+                     Text="{Binding Book.Author,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="2"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Category,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{Binding Book.ErrorCollection[Category]}" />
+                     Text="{Binding Book.Category,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Margin="4,8,4,8"
                      Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="3"
                      Style="{StaticResource TextBoxStyle}"
-                     Text="{Binding Book.Publisher,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}"
-                     ToolTip="{Binding Book.ErrorCollection[Publisher]}" />
+                     Text="{Binding Book.Publisher,ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged}" />
             <ComboBox   Name="BookLanguage"
                         Margin="4,8,4,8"
                         Grid.Column="1"

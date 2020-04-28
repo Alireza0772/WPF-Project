@@ -10,13 +10,7 @@ namespace WPFProject.ViewModels
 {
     public class ViewModelBase
     {
-        private ServiceManager serviceManager;
-        protected ServiceManager ServiceManager { get => serviceManager; }
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
-        public ViewModelBase()
-        {
-            serviceManager = ServiceManager.That;
-        }
     }
 }

@@ -25,7 +25,6 @@ namespace WPFProject.Views
         public BookView()
         {
             InitializeComponent();
-            DataContext = bookViewModel;
         }
     }
 }
