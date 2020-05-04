@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ControlLibrary;component/Brushes/SolidColorBrushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <Style x:Key="TextBoxStyle"
            TargetType="{x:Type TextBox}">
         <Setter Property="Template">
@@ -13,16 +14,40 @@
                             x:Name="border"
                             CornerRadius="11"
                             Background="{StaticResource TextBox.Background}"
-                            SnapsToDevicePixels="True">
-                        <ScrollViewer x:Name="PART_ContentHost"
-                                      Focusable="false"
-                                      HorizontalScrollBarVisibility="Hidden"
-                                      VerticalScrollBarVisibility="Hidden"
-                                      VerticalContentAlignment="Center"
-                                      VerticalAlignment="Center"
-                                      Margin="5,0"
-                                      Foreground="{DynamicResource Label.Normal.Foreground}" />
+                            BorderBrush="OrangeRed"
+                            BorderThickness="0"
+                            SnapsToDevicePixels="True"
+                            Visibility="Visible">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="false"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden"
+                                          VerticalContentAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Margin="5,0"
+                                          Foreground="{DynamicResource Label.Normal.Foreground}" />
+                            <TextBlock Name="errorSign"
+                                       Text="!"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Foreground="DarkRed"
+                                       Margin="0,0,5,0"
+                                       ToolTip="{Binding Path=(Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource TemplatedParent}}"
+                                       Visibility="Collapsed" />
+                        </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Validation.HasError"
+                                 Value="True">
+                            <Setter Property="BorderThickness"
+                                    TargetName="border"
+                                    Value="1" />
+                            <Setter Property="Visibility"
+                                    TargetName="errorSign"
+                                    Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
