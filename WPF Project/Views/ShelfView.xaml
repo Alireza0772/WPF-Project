@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WPFProject.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ControlLibrary="clr-namespace:ControlLibrary;assembly=ControlLibrary"
              xmlns:local="clr-namespace:WPFProject"
              mc:Ignorable="d"
              d:DesignHeight="450"
@@ -76,6 +77,14 @@
                     Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"
                     Maximum="100"
                     LargeChange="10" />
+            <ControlLibrary:StarHandle Grid.Row="4"
+                                       Grid.ColumnSpan="4"
+                                       VerticalAlignment="Top"
+                                       Margin="20"
+                                       Style="{StaticResource ss}"
+                                       X="{Binding HandleX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                       Y="{Binding HandleY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
+                                       Width="150" />
             <Button Name="LibraryCancelButton"
                     Content="Cancel"
                     Margin="15"
