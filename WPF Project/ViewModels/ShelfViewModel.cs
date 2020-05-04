@@ -40,7 +40,6 @@ namespace WPFProject.ViewModels
 
         private void UpdateShelf()
         {
-            System.Diagnostics.Debug.WriteLine(temp);
             temp = Shelf.Floor;
             if (!dispatcherTimer.IsEnabled)
             {

@@ -85,14 +85,30 @@
                                       Focusable="false"
                                       ClickMode="Press"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" />
-                        
-                        
+                        <ContentPresenter x:Name="ContentSite"
+                                          IsHitTestVisible="False"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          Margin="3,3,23,3"
+                                          VerticalAlignment="Stretch"
+                                          HorizontalAlignment="Left">
+                        </ContentPresenter>
+                        <TextBox x:Name="PART_EditableTextBox"
+                                 Style="{x:Null}"
+                                 Template="{StaticResource ComboBoxTextBox}"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Bottom"
+                                 Margin="3,3,23,3"
+                                 Focusable="True"
+                                 Background="Transparent"
+                                 Visibility="Hidden"
+                                 IsReadOnly="{TemplateBinding IsReadOnly}" />
                         <Popup x:Name="Popup"
-                               Placement="Top"
+                               Placement="Bottom"
                                IsOpen="{TemplateBinding IsDropDownOpen}"
                                AllowsTransparency="True"
-                               Focusable="False"
-                               PopupAnimation="Slide">
+                               Focusable="False">
                             <Grid x:Name="DropDown"
                                   SnapsToDevicePixels="True"
                                   MinWidth="{TemplateBinding ActualWidth}"
@@ -109,6 +125,25 @@
                                                 KeyboardNavigation.DirectionalNavigation="Contained" />
                                 </ScrollViewer>
                             </Grid>
+                            <Popup.Style>
+                                <Style TargetType="{x:Type Popup}">
+                                    <Style.Triggers>
+                                        <Trigger Property="IsOpen"
+                                                 Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                                         Duration="0:0:1"
+                                                                         From="0.0"
+                                                                         To="100" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Popup.Style>
                         </Popup>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
@@ -163,5 +198,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
 </ResourceDictionary>
