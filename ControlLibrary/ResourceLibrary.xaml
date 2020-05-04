@@ -10,6 +10,8 @@
         <ResourceDictionary Source="BaseControlStyles/ComboBoxStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/HeaderButtonStyle.xaml" />
+        <ResourceDictionary Source="BaseControlStyles/WindowStyle.xaml" />
+        <ResourceDictionary Source="CustomControlStyles/StarHandleControlStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
     

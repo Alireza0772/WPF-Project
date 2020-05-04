@@ -4,11 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usr="clr-namespace:WPFProject.Views"
         xmlns:local="clr-namespace:WPFProject"
+        xmlns:controls="clr-namespace:ControlLibrary;assembly=ControlLibrary"
         x:Class="WPFProject.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
         Height="450"
-        Width="800"
+        Width="1200"
         MinHeight="265"
         MinWidth="510"
         WindowStyle="None">
