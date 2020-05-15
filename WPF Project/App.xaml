@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ControlLibrary;component/ResourceLibrary.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/CustomControlLibrary;component/ResourceLibrary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

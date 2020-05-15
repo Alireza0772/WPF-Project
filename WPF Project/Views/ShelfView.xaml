@@ -4,17 +4,36 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:WPFProject.ViewModels"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:ControlLibrary="clr-namespace:ControlLibrary;assembly=ControlLibrary"
+             xmlns:customControlLibrary="clr-namespace:CustomControlLibrary;assembly=CustomControlLibrary"
              xmlns:local="clr-namespace:WPFProject"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <UserControl.Resources>
-        <vm:ShelfViewModel x:Key="dataContext"/>
-    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Triggers>
+                <Trigger Property="Visibility"
+                         Value="Visible">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0.0"
+                                                 To="1.0"
+                                                 Duration="0:0:0.5" />
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                    From="-50,0,80,20"
+                                                    To="10,0,20,20"
+                                                    Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     <GroupBox Header="Shelf"
-              Style="{StaticResource GroupBoxStyle}"
-              DataContext="{StaticResource dataContext}">
+              Style="{StaticResource GroupBoxStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -27,7 +46,9 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="1*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Name="countLabel"
@@ -51,20 +72,20 @@
                      Grid.ColumnSpan="3"
                      Grid.Row="0"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" 
-                     Text="{Binding Shelf.BookCount,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Shelf.BookCount,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="1"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" 
-                     Text="{Binding Shelf.Position, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Shelf.Position, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <TextBox Grid.Column="1"
                      Grid.ColumnSpan="3"
                      Grid.Row="2"
                      Margin="4,8,4,8"
-                     Style="{StaticResource TextBoxStyle}" 
-                     Text="{Binding Shelf.Level,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                     Style="{StaticResource TextBoxStyle}"
+                     Text="{Binding Shelf.Level,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <Slider Name="ShelfFloorSlider"
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
@@ -72,36 +93,55 @@
                     Margin="4,8,4,8"
                     IsMoveToPointEnabled="True"
                     IsSnapToTickEnabled="True"
-                    
-                    Style="{StaticResource SliderStyle}" 
+                    Style="{StaticResource SliderStyle}"
                     Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"
                     Maximum="100"
                     LargeChange="10" />
-            <ControlLibrary:StarHandle Grid.Row="4"
+            <customControlLibrary:StarHandle Name="GreenHandle"
+                                       Grid.Row="4"
                                        Grid.ColumnSpan="4"
                                        VerticalAlignment="Top"
                                        Margin="20"
-                                       Style="{StaticResource ss}"
+                                       Style="{StaticResource StarHandleStyle}"
                                        X="{Binding HandleX,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                        Y="{Binding HandleY,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                        Width="150" />
+            <Label Content="X: "
+                   Grid.Row="5"
+                   Style="{StaticResource LabelStyle}"
+                   Padding="10,5,5,5" />
+            <Label Content="Y: "
+                   Grid.Row="5"
+                   Grid.Column="2"
+                   Style="{StaticResource LabelStyle}"
+                   Padding="10,5,5,5" />
+            <TextBox Text="{Binding X, ElementName=GreenHandle}"
+                     Grid.Row="5"
+                     Grid.Column="1"
+                     Style="{StaticResource TextBoxStyle}"
+                     Margin="4,8,4,8" />
+            <TextBox Text="{Binding Y, ElementName=GreenHandle}"
+                     Grid.Row="5"
+                     Grid.Column="3"
+                     Style="{StaticResource TextBoxStyle}"
+                     Margin="4,8,4,8" />
             <Button Name="LibraryCancelButton"
                     Content="Cancel"
                     Margin="15"
-                    Grid.Row="5"
+                    Grid.Row="7"
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Center"
-                    Style="{StaticResource CommonButtonStyle}" 
-                    Command="{Binding LoadCommand}"/>
+                    Style="{StaticResource CommonButtonStyle}"
+                    Command="{Binding LoadCommand}" />
             <Button Name="LibrarySaveButton"
                     Content="Save"
                     Margin="15"
-                    Grid.Row="5"
+                    Grid.Row="7"
                     Grid.Column="2"
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Center"
                     Style="{StaticResource CommonButtonStyle}"
-                    Command="{Binding SaveCommand}"/>
+                    Command="{Binding SaveCommand}" />
         </Grid>
     </GroupBox>
 </UserControl>

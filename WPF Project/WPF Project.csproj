@@ -73,6 +73,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookLanguage.cs" />
+    <Compile Include="CommandEvent.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Library.cs" />
     <Compile Include="Models\ModelBase.cs" />
@@ -148,6 +150,10 @@
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{ab506bcd-cbbf-4c92-ab42-1e0e14249a8b}</Project>
       <Name>ControlLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CustomControlLibrary\CustomControlLibrary.csproj">
+      <Project>{aab7ff71-6913-4388-a0c0-9adf54bb0a53}</Project>
+      <Name>CustomControlLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

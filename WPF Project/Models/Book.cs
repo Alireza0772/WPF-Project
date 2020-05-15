@@ -13,16 +13,6 @@ namespace WPFProject.Models
 {
     public class Book : ModelBase, IDataErrorInfo
     {
-        #region enums
-        public enum BookLanguage
-        {
-            English,
-            Persian,
-            Deutch,
-            Spanish
-        }
-        #endregion
-
         #region fields
         private string name;
         private string author;

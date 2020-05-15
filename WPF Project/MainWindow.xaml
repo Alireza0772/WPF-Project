@@ -4,7 +4,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:usr="clr-namespace:WPFProject.Views"
         xmlns:local="clr-namespace:WPFProject"
-        xmlns:controls="clr-namespace:ControlLibrary;assembly=ControlLibrary"
+        xmlns:viewModels="clr-namespace:WPFProject.ViewModels"
+        xmlns:models ="clr-namespace:WPFProject.Models"
         x:Class="WPFProject.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
@@ -14,28 +15,68 @@
         MinWidth="510"
         WindowStyle="None"
         Style="{StaticResource WindowStyle}">
+    <Window.DataContext>
+        <viewModels:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <usr:LibraryView Margin="20,0,10,20"
-                         Grid.Row="1">
+        <GroupBox x:Name="ManagerGroup" Header="Manager"
+                  Style="{StaticResource GroupBoxStyle}" Margin="20,0,10,20">
+            <TreeView Background="{x:Null}"
+                      BorderThickness="0"
+                      ItemsSource="{Binding Libraries}"
+                      local:CommandEvent.SelectedItemChangedCommand="{Binding SelectedItemChangedCommand}"
+                      Style="{StaticResource TreeViewStyle}"
+                      ItemContainerStyle="{DynamicResource TreeViewItemStyle}">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type models:Library}" ItemsSource="{Binding Shelves}">
+                        <TextBlock Text="{Binding Name}" 
+                                   Foreground="White"/>
+                        <HierarchicalDataTemplate.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type models:Shelf}" ItemsSource="{Binding Books}">
+                                <TextBlock Text="{Binding Position}" 
+                                           Foreground="White"/>
+                                <HierarchicalDataTemplate.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}" 
+                                                   Foreground="White"/>
+                                    </DataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+                    </HierarchicalDataTemplate>
+                </TreeView.Resources>
+            </TreeView>
+            <GroupBox.Effect>
+                <DropShadowEffect />
+            </GroupBox.Effect>
+        </GroupBox>
+        <usr:LibraryView Margin="10,0,20,20"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         DataContext="{Binding LibraryViewModel}"
+                         Visibility="{Binding Visibility}">
             <usr:LibraryView.Effect>
                 <DropShadowEffect />
             </usr:LibraryView.Effect>
         </usr:LibraryView>
         <usr:ShelfView Grid.Column="1"
                        Grid.Row="1"
-                       Margin="10,0,10,20">
+                       Margin="10,0,20,20"
+                       DataContext="{Binding ShelfViewModel}"
+                       Visibility="{Binding Visibility}">
             <usr:ShelfView.Effect>
                 <DropShadowEffect />
             </usr:ShelfView.Effect>
         </usr:ShelfView>
-        <usr:BookView Grid.Column="2"
+        <usr:BookView Grid.Column="1"
                       Grid.Row="1"
-                      Margin="10,0,20,20">
+                      Margin="10,0,20,20"
+                      DataContext="{Binding BookViewModel}"
+                      Visibility="{Binding Visibility}">
             <usr:BookView.Effect>
                 <DropShadowEffect />
             </usr:BookView.Effect>

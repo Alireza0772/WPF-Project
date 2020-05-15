@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using WPFProject.Models;
@@ -13,16 +14,26 @@ namespace WPFProject.ViewModels
 
     class BookViewModel : ViewModelBase
     {
+        private Visibility visibility;
+
+        public Visibility Visibility
+        {
+            get { return visibility; }
+            set {
+                visibility = value;
+                OnPropertyChanged();
+            }
+        }
         public Book Book { get; private set; }
-        public IEnumerable<Book.BookLanguage> AvailableLanguages
+        public IEnumerable<BookLanguage> AvailableLanguages
         {
             get {
-                return Enum.GetValues(typeof(Book.BookLanguage)).Cast<Book.BookLanguage>();
+                return Enum.GetValues(typeof(BookLanguage)).Cast<BookLanguage>();
             }
         }
         public BookViewModel()
         {
-            LoadCommand = new RelayCommand(x => LoadBook(), x => CanLoad());
+            LoadCommand = new RelayCommand(x => LoadBook());
             SaveCommand = new RelayCommand(x => SaveBook(), x => CanSave());
             LoadBook();
             Book.PropertyChanged += Book_PropertyChanged;
@@ -38,21 +49,7 @@ namespace WPFProject.ViewModels
         }
         private void SaveBook()
         {
-            XElement x;
-            using (var memoryStream = new MemoryStream())
-            {
-                using (TextWriter streamWriter = new StreamWriter(memoryStream))
-                {
-                    var xmlSerializer = new XmlSerializer(typeof(Book));
-                    xmlSerializer.Serialize(streamWriter, Book);
-                    x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
-                }
-            }
-            ServiceManager.Instance.Save(x);
-        }
-        private bool CanLoad()
-        {
-            return true;
+            ServiceManager.Instance.Save(Book);
         }
         private bool CanSave()
         {

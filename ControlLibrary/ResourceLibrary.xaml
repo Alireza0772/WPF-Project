@@ -11,7 +11,9 @@
         <ResourceDictionary Source="BaseControlStyles/CheckBoxStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/HeaderButtonStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/WindowStyle.xaml" />
-        <ResourceDictionary Source="CustomControlStyles/StarHandleControlStyle.xaml" />
+        <ResourceDictionary Source="BaseControlStyles/TreeViewStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
+    
+    
 </ResourceDictionary>
     

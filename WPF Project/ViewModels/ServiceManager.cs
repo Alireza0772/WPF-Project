@@ -67,19 +67,21 @@ namespace WPFProject.ViewModels
             }
             isLoaded = true;
         }
-        public void Save(XElement element)
+        public void Save(ModelBase model)
         {
-            XElement changedElement = xmlDocument.Descendants(element.Name).Single();
-            changedElement.ReplaceWith(element);
-            xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
-        }
-        public Library GetLibrary()
-        {
-            if (!isLoaded)
+            XElement x;
+            using (var memoryStream = new MemoryStream())
             {
-                Load();
+                using (TextWriter streamWriter = new StreamWriter(memoryStream))
+                {
+                    var xmlSerializer = new XmlSerializer(model.GetType());
+                    xmlSerializer.Serialize(streamWriter, model);
+                    x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
+                }
             }
-            return Library;
+            XElement changedElement = xmlDocument.Descendants(x.Name).Single();
+            changedElement.ReplaceWith(x);
+            xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
         }
     }
 }

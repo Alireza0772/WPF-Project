@@ -7,12 +7,31 @@
              mc:Ignorable="d"
              d:DesignHeight="302.626"
              d:DesignWidth="250.13">
-    <UserControl.Resources>
-        <vm:BookViewModel x:Key="dataContext" />
-    </UserControl.Resources>
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Triggers>
+                <Trigger Property="Visibility"
+                         Value="Visible">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0.0"
+                                                 To="1.0"
+                                                 Duration="0:0:0.5" />
+                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
+                                                    From="-50,0,80,20"
+                                                    To="10,0,20,20"
+                                                    Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>
     <GroupBox Header="Book"
-              Style="{StaticResource GroupBoxStyle}"
-              DataContext="{StaticResource dataContext}">
+              Style="{StaticResource GroupBoxStyle}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
