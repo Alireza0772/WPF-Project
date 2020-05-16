@@ -49,6 +49,7 @@ namespace WPFProject.ViewModels
         }
         private void LoadShelf()
         {
+            ServiceManager.Instance.Load();
             Shelf = ServiceManager.Instance.Library.Shelves.First();
         }
         private void SaveShelf()
