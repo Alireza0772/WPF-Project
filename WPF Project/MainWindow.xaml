@@ -5,7 +5,7 @@
         xmlns:usr="clr-namespace:WPFProject.Views"
         xmlns:local="clr-namespace:WPFProject"
         xmlns:viewModels="clr-namespace:WPFProject.ViewModels"
-        xmlns:models ="clr-namespace:WPFProject.Models"
+        xmlns:models="clr-namespace:WPFProject.Models"
         x:Class="WPFProject.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
@@ -18,68 +18,156 @@
     <Window.DataContext>
         <viewModels:MainWindowViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModels:BookViewModel}">
+            <usr:BookView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ShelfViewModel}">
+            <usr:ShelfView DataContext="{Binding}" />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:LibraryViewModel}">
+            <usr:LibraryView DataContext="{Binding}" />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="ManagerGroup" Header="Manager"
-                  Style="{StaticResource GroupBoxStyle}" Margin="20,0,10,20">
-            <TreeView Background="{x:Null}"
-                      BorderThickness="0"
-                      ItemsSource="{Binding Libraries}"
-                      local:CommandEvent.SelectedItemChangedCommand="{Binding SelectedItemChangedCommand}"
-                      Style="{StaticResource TreeViewStyle}"
-                      ItemContainerStyle="{DynamicResource TreeViewItemStyle}">
+        <GroupBox x:Name="ManagerGroup"
+                  Header="Manager"
+                  Style="{StaticResource GroupBoxStyle}"
+                  Margin="20,0,10,20">
+            <local:ModelTreeView Background="{x:Null}"
+                                 BorderThickness="0"
+                                 SelectedItem="{Binding Model, Mode=TwoWay}"
+                                 local:CommandEvent.SelectedItemChangedCommand="{Binding SelectedItemChangedCommand}"
+                                 ItemsSource="{Binding Libraries,Mode=TwoWay}">
+                <local:ModelTreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="local:ModelTreeView.ExpandedCommand"
+                                Value="{Binding DataContext.ExpandCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:MainWindow}}}" />
+                        <Setter Property="Background"
+                                Value="Transparent" />
+                        <Setter Property="HorizontalContentAlignment"
+                                Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                        <Setter Property="VerticalContentAlignment"
+                                Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                        <Setter Property="Padding"
+                                Value="1,0,0,0" />
+                        <Setter Property="Foreground"
+                                Value="White" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MinWidth="19"
+                                                              Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <ToggleButton x:Name="Expander"
+                                                      ClickMode="Press"
+                                                      IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                      Style="{StaticResource ExpandCollapseToggleStyle}" />
+                                        <Border x:Name="Bd"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                Background="{TemplateBinding Background}"
+                                                Grid.Column="1"
+                                                Padding="{TemplateBinding Padding}"
+                                                SnapsToDevicePixels="true">
+                                            <ContentPresenter x:Name="PART_Header"
+                                                              ContentSource="Header" 
+                                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </Border>
+                                        <ItemsPresenter x:Name="ItemsHost"
+                                                        Grid.ColumnSpan="2"
+                                                        Grid.Column="1"
+                                                        Grid.Row="1" />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsExpanded"
+                                                 Value="false">
+                                            <Setter Property="Visibility"
+                                                    TargetName="ItemsHost"
+                                                    Value="Collapsed" />
+                                        </Trigger>
+                                        <Trigger Property="HasItems"
+                                                 Value="false">
+                                            <Setter Property="Visibility"
+                                                    TargetName="Expander"
+                                                    Value="Hidden" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected"
+                                                 Value="true">
+                                            <Setter Property="Foreground"
+                                                    Value="LightGreen" />
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected"
+                                                           Value="true" />
+                                                <Condition Property="IsSelectionActive"
+                                                           Value="false" />
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Foreground"
+                                                    Value="LightGreen" />
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled"
+                                                 Value="false">
+                                            <Setter Property="Foreground"
+                                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="VirtualizingPanel.IsVirtualizing"
+                                     Value="true">
+                                <Setter Property="ItemsPanel">
+                                    <Setter.Value>
+                                        <ItemsPanelTemplate>
+                                            <VirtualizingStackPanel />
+                                        </ItemsPanelTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </local:ModelTreeView.ItemContainerStyle>
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate DataType="{x:Type models:Library}" ItemsSource="{Binding Shelves}">
-                        <TextBlock Text="{Binding Name}" 
-                                   Foreground="White"/>
-                        <HierarchicalDataTemplate.ItemTemplate>
-                            <HierarchicalDataTemplate DataType="{x:Type models:Shelf}" ItemsSource="{Binding Books}">
-                                <TextBlock Text="{Binding Position}" 
-                                           Foreground="White"/>
-                                <HierarchicalDataTemplate.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}" 
-                                                   Foreground="White"/>
-                                    </DataTemplate>
-                                </HierarchicalDataTemplate.ItemTemplate>
-                            </HierarchicalDataTemplate>
-                        </HierarchicalDataTemplate.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type models:Library}"
+                                              ItemsSource="{Binding Dummy}">
+                        <TextBlock Text="{Binding Name}"/>
                     </HierarchicalDataTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type models:Shelf}"
+                                              ItemsSource="{Binding Dummy}">
+                        <TextBlock Text="{Binding Position}" />
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type models:Book}">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
                 </TreeView.Resources>
-            </TreeView>
+            </local:ModelTreeView>
             <GroupBox.Effect>
                 <DropShadowEffect />
             </GroupBox.Effect>
         </GroupBox>
-        <usr:LibraryView Margin="10,0,20,20"
-                         Grid.Row="1"
-                         Grid.Column="1"
-                         DataContext="{Binding LibraryViewModel}"
-                         Visibility="{Binding Visibility}">
-            <usr:LibraryView.Effect>
+        <ContentPresenter Grid.Column="1"
+                          Grid.Row="1"
+                          Margin="10,0,20,20"
+                          Content="{Binding ViewModel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <ContentPresenter.Effect>
                 <DropShadowEffect />
-            </usr:LibraryView.Effect>
-        </usr:LibraryView>
-        <usr:ShelfView Grid.Column="1"
-                       Grid.Row="1"
-                       Margin="10,0,20,20"
-                       DataContext="{Binding ShelfViewModel}"
-                       Visibility="{Binding Visibility}">
-            <usr:ShelfView.Effect>
-                <DropShadowEffect />
-            </usr:ShelfView.Effect>
-        </usr:ShelfView>
-        <usr:BookView Grid.Column="1"
-                      Grid.Row="1"
-                      Margin="10,0,20,20"
-                      DataContext="{Binding BookViewModel}"
-                      Visibility="{Binding Visibility}">
-            <usr:BookView.Effect>
-                <DropShadowEffect />
-            </usr:BookView.Effect>
-        </usr:BookView>
+            </ContentPresenter.Effect>
+        </ContentPresenter>
     </Grid>
 </Window>

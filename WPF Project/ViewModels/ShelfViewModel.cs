@@ -35,11 +35,11 @@ namespace WPFProject.ViewModels
             }
         }
 
-        public ShelfViewModel()
+        public ShelfViewModel(Shelf model)
         {
             LoadCommand = new RelayCommand(x => LoadShelf());
             SaveCommand = new RelayCommand(x => SaveShelf(), x => CanSave());
-            LoadShelf();
+            Shelf = model;
             Shelf.PropertyChanged += Shelf_PropertyChanged;
         }
 
@@ -50,7 +50,7 @@ namespace WPFProject.ViewModels
         private void LoadShelf()
         {
             ServiceManager.Instance.Load();
-            Shelf = ServiceManager.Instance.Library.Shelves.First();
+            Shelf = ServiceManager.Instance.Libraries.First().Shelves.First();
         }
         private void SaveShelf()
         {

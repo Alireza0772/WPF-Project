@@ -27,6 +27,8 @@ namespace CustomControlLibrary
 		private Ellipse partBoundary;
 		private Path partHandle;
 		private bool isHandleGrabbed = false;
+		private double bodySize;
+		private double boundarySize;
 		private double sin;
 		private double cos;
 
@@ -73,10 +75,16 @@ namespace CustomControlLibrary
 			partBoundary = GetTemplateChild("Part_Boundary") as Ellipse;
 			partHandle = GetTemplateChild("Part_Handle") as Path;
 		}
+		protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+		{
+			base.OnRenderSizeChanged(sizeInfo);
+			bodySize = partBody.Width;
+			boundarySize = partBoundary.Width;
+		}
 		private void SetCoordination(Point point)
 		{
-			double xprime = (point.X - (partBody.ActualWidth / 2)) / (partBoundary.ActualWidth / 2 - 25);
-			double yprime = (point.Y - (partBody.ActualWidth / 2)) / (partBoundary.ActualWidth / 2 - 25);
+			double xprime = (point.X - (bodySize / 2)) / (boundarySize / 2 - 25);
+			double yprime = (point.Y - (bodySize / 2)) / (boundarySize / 2 - 25);
 			sin = yprime / Math.Sqrt(Math.Pow(xprime, 2) + Math.Pow(yprime, 2));
 			cos = xprime / Math.Sqrt(Math.Pow(xprime, 2) + Math.Pow(yprime, 2));
 			if (Math.Sqrt(Math.Pow(xprime, 2) + Math.Pow(yprime, 2)) > 1)
@@ -91,8 +99,8 @@ namespace CustomControlLibrary
 		{
 			partHandle.Margin = new Thickness
 			{
-				Left = X * (partBoundary.ActualWidth / 2 - 25),
-				Top = (-1) * Y * (partBoundary.ActualHeight / 2 - 25)
+				Left = X * (boundarySize / 2 - 25),
+				Top = (-1) * Y * (boundarySize / 2 - 25)
 			};
 		}
 	}

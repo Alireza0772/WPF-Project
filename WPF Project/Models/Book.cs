@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace WPFProject.Models
 {
-    public class Book : ModelBase, IDataErrorInfo
+    public class Book : ModelBase, IDataErrorInfo,IXmlSerializable
     {
         #region fields
         private string name;
@@ -86,6 +87,12 @@ namespace WPFProject.Models
         public Dictionary<string, string> ErrorCollection { get; set; } = new Dictionary<string, string>();
         #endregion
 
+        public Book() { }
+        public Book(XmlReader reader)
+        {
+            ReadXml(reader);
+        }
+
         public string this[string propertyName]
         {
             get {
@@ -145,6 +152,28 @@ namespace WPFProject.Models
                 OnPropertyChanged("ErrorCollection");
                 return Error;
             }
+        }
+
+        public XmlSchema GetSchema() => throw new NotImplementedException();
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement();
+            Name = reader.ReadElementContentAsString();
+            Author = reader.ReadElementContentAsString();
+            Category = reader.ReadElementContentAsString();
+            Publisher = reader.ReadElementContentAsString();
+            Language = (BookLanguage)Enum.Parse(typeof(BookLanguage), reader.ReadElementContentAsString());
+            Genre = reader.ReadElementContentAsString();
+            reader.ReadEndElement();
+        }
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString(nameof(Name), Name);
+            writer.WriteElementString(nameof(Author), Author);
+            writer.WriteElementString(nameof(Category), Category);
+            writer.WriteElementString(nameof(Publisher), Publisher);
+            writer.WriteElementString(nameof(Language), Language.ToString());
+            writer.WriteElementString(nameof(Genre), Genre);
         }
     }
 }

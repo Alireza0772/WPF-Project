@@ -9,6 +9,9 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:SliderValuetoColorConverter x:Key="SliderValuetoColorConverter" />
+    </UserControl.Resources>
     <UserControl.Style>
         <Style TargetType="UserControl">
             <Style.Triggers>
@@ -87,6 +90,7 @@
                      Style="{StaticResource TextBoxStyle}"
                      Text="{Binding Shelf.Level,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <Slider Name="ShelfFloorSlider"
+                    Foreground="{Binding Value, Converter={StaticResource SliderValuetoColorConverter}, RelativeSource={RelativeSource Self}}"
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
                     Grid.Row="3"
@@ -96,7 +100,9 @@
                     Style="{StaticResource SliderStyle}"
                     Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"
                     Maximum="100"
-                    LargeChange="10" />
+                    LargeChange="10"
+                    Background="#FFD64848"
+                    BorderBrush="#FF4BFF08" />
             <customControlLibrary:StarHandle Name="GreenHandle"
                                        Grid.Row="4"
                                        Grid.ColumnSpan="4"

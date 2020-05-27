@@ -23,7 +23,7 @@ namespace WPFProject.ViewModels
 		private XmlSerializer xmlSerializer;
 		private bool isLoaded = false;
 
-		public Library Library { get; set; }
+		public List<Library> Libraries { get; set; }
 		public static ServiceManager Instance
 		{
 			get {
@@ -44,27 +44,41 @@ namespace WPFProject.ViewModels
 		{
 			try
 			{
+				XmlReaderSettings settings = new XmlReaderSettings();
+				settings.IgnoreWhitespace = true;
 				xmlDocument = XDocument.Load(Environment.CurrentDirectory + @"\data.xml");
-				XElement xElement = xmlDocument.Descendants("Library").Single();
-				Library = (Library)xmlSerializer.Deserialize(xElement.CreateReader());
-			}
-			catch (Exception)
-			{
-				Library = new Library();
-				Library.Name = "myLibrary";
-				Library.Shelves = new List<Shelf> { new Shelf { Position = "AA" } };
-				Library.Shelves[0].Books = new List<Book> { new Book { Name = "myBook" } };
-				XElement x;
-				using (var memoryStream = new MemoryStream())
+				using (XmlReader reader = XmlReader.Create(Environment.CurrentDirectory + @"\data.xml", settings))
 				{
-					using (TextWriter streamWriter = new StreamWriter(memoryStream))
+					reader.ReadStartElement();
+					Libraries = new List<Library>();
+					while (reader.NodeType == XmlNodeType.Element)
 					{
-						xmlSerializer.Serialize(streamWriter, Library);
-						x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
+						Libraries.Add(new Library(reader));
+					}
+					reader.ReadEndElement();
+				}
+			}
+			catch (Exception e)
+			{
+				Debug.WriteLine(e.Message);
+				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myBook" } }) { Position = "AA" } })
+				{
+					Name = "myLibrary"
+				});
+				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myBook2" } }) { Position = "BA" } })
+				{
+					Name = "myLibrary2"
+				});
+				using (XmlWriter writer = XmlWriter.Create(Environment.CurrentDirectory + @"\data.xml"))
+				{
+					foreach (var library in Libraries)
+					{
+						writer.WriteStartElement(nameof(Library));
+						library.WriteXml(writer);
+						writer.WriteEndElement();
 					}
 				}
-				xmlDocument = new XDocument(x);
-				xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
+				xmlDocument = XDocument.Load(Environment.CurrentDirectory + @"\data.xml");
 			}
 			isLoaded = true;
 		}
