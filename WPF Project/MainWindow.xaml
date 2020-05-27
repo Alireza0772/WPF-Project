@@ -9,9 +9,9 @@
         x:Class="WPFProject.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow"
-        Height="450"
-        Width="1200"
-        MinHeight="265"
+        Height="500"
+        Width="510"
+        MinHeight="500"
         MinWidth="510"
         WindowStyle="None"
         Style="{StaticResource WindowStyle}">
@@ -163,7 +163,6 @@
         </GroupBox>
         <ContentPresenter Grid.Column="1"
                           Grid.Row="1"
-                          Margin="10,0,20,20"
                           Content="{Binding ViewModel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
             <ContentPresenter.Effect>
                 <DropShadowEffect />

@@ -7,30 +7,8 @@
              xmlns:vm="clr-namespace:WPFProject.ViewModels"
              mc:Ignorable="d"
              d:DesignHeight="400"
-             d:DesignWidth="800">
-    <UserControl.Style>
-        <Style TargetType="UserControl">
-            <Style.Triggers>
-                <Trigger Property="Visibility"
-                         Value="Visible">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                 From="0.0"
-                                                 To="1.0"
-                                                 Duration="0:0:0.5" />
-                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
-                                                    From="-50,0,80,20"
-                                                    To="10,0,20,20"
-                                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>
+             d:DesignWidth="800"
+             Style="{StaticResource UserControlStyle}">
     <GroupBox Header="Library"
               Style="{StaticResource GroupBoxStyle}">
         <Grid>
