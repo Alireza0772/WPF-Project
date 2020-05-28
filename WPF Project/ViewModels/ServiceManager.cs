@@ -61,6 +61,7 @@ namespace WPFProject.ViewModels
 			catch (Exception e)
 			{
 				Debug.WriteLine(e.Message);
+				Libraries = new List<Library>();
 				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myBook" } }) { Position = "AA" } })
 				{
 					Name = "myLibrary"
