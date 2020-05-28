@@ -62,22 +62,24 @@ namespace WPFProject.ViewModels
 			{
 				Debug.WriteLine(e.Message);
 				Libraries = new List<Library>();
-				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myBook" } }) { Position = "AA" } })
+				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myfirstBook" } }) { Position = "AA" } })
 				{
-					Name = "myLibrary"
+					Name = "myfirstLibrary"
 				});
-				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "myBook2" } }) { Position = "BA" } })
+				Libraries.Add(new Library(new List<Shelf> { new Shelf(new List<Book> { new Book { Name = "mySecondBook" } }) { Position = "BA" } })
 				{
-					Name = "myLibrary2"
+					Name = "mysecondLibrary"
 				});
 				using (XmlWriter writer = XmlWriter.Create(Environment.CurrentDirectory + @"\data.xml"))
 				{
+					writer.WriteStartElement(nameof(Libraries));
 					foreach (var library in Libraries)
 					{
 						writer.WriteStartElement(nameof(Library));
 						library.WriteXml(writer);
 						writer.WriteEndElement();
 					}
+					writer.WriteEndElement();
 				}
 				xmlDocument = XDocument.Load(Environment.CurrentDirectory + @"\data.xml");
 			}
@@ -95,8 +97,28 @@ namespace WPFProject.ViewModels
 					x = XElement.Parse(Encoding.ASCII.GetString(memoryStream.ToArray()));
 				}
 			}
-			XElement changedElement = xmlDocument.Descendants(x.Name).Single();
-			changedElement.ReplaceWith(x);
+			XElement changedElement = null;
+			foreach (var element in xmlDocument.Descendants(x.Name))
+			{
+				if (model is Library || model is Book)
+				{
+					if (element.Element("Name").Value == x.Element("Name").Value)
+					{
+						changedElement = element;
+					}
+				}
+				else
+				{
+					if (element.Element("Position").Value == x.Element("Position").Value)
+					{
+						changedElement = element;
+					}
+				}
+			}
+			if (changedElement != null)
+			{
+				changedElement.ReplaceWith(x);
+			}
 			xmlDocument.Save(Environment.CurrentDirectory + @"\data.xml");
 		}
 	}

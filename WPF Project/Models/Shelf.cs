@@ -145,7 +145,8 @@ namespace WPFProject.Models
 			Position = reader.ReadElementContentAsString();
 			Level = reader.ReadElementContentAsInt();
 			Floor = reader.ReadElementContentAsInt();
-			books = ReadBooks(reader);
+			XmlReader booksReader = reader.ReadSubtree();
+			books = ReadBooks(booksReader);
 			reader.Skip();
 			reader.ReadEndElement();
 		}

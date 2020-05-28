@@ -34,7 +34,6 @@ namespace WPFProject.Models
 				OnPropertyChanged();
 			}
 		}
-
 		public string Name
 		{
 			get => name;
@@ -205,7 +204,6 @@ namespace WPFProject.Models
 		}
 		public void WriteXml(XmlWriter writer)
 		{
-			writer.WriteStartElement(nameof(Library));
 			writer.WriteElementString(nameof(Name), Name);
 			writer.WriteElementString(nameof(Address), Address);
 			writer.WriteElementString(nameof(Tell), Tell);
@@ -214,6 +212,7 @@ namespace WPFProject.Models
 			writer.WriteElementString(nameof(Email), Email);
 			writer.WriteStartElement(nameof(Shelves));
 			WriteShelves(writer);
+			writer.WriteEndElement();
 		}
 		private void WriteShelves(XmlWriter writer)
 		{
