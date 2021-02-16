@@ -32,11 +32,11 @@ namespace WPFProject.ViewModels
 				OnPropertyChanged();
 			}
 		}
-		public LibraryViewModel()
+		public LibraryViewModel(Library model)
 		{
 			LoadCommand = new RelayCommand(x => LoadLibrary());
 			SaveCommand = new RelayCommand(x => SaveLibrary(), x => CanSave());
-			LoadLibrary();
+			Library = model;
 			Library.PropertyChanged += Library_PropertyChanged;
 		}
 		private void Library_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -47,7 +47,7 @@ namespace WPFProject.ViewModels
 		private void LoadLibrary()
 		{
 			ServiceManager.Instance.Load();
-			Library = ServiceManager.Instance.Library;
+			Library = ServiceManager.Instance.Libraries[0];
 		}
 		private void SaveLibrary()
 		{

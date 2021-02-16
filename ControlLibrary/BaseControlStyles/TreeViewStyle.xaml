@@ -4,76 +4,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/ControlLibrary;component/Brushes/SolidColorBrushes.xaml" />
     </ResourceDictionary.MergedDictionaries>
-    <Style x:Key="TreeViewStyle"
-           TargetType="{x:Type TreeView}">
-        <Setter Property="Background"
-                Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
-        <Setter Property="BorderBrush"
-                Value="{StaticResource ListBorder}" />
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="Padding"
-                Value="1" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
-                Value="Auto" />
-        <Setter Property="ScrollViewer.PanningMode"
-                Value="Both" />
-        <Setter Property="Stylus.IsFlicksEnabled"
-                Value="False" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TreeView}">
-                    <Border x:Name="Bd"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            SnapsToDevicePixels="true">
-                        <ScrollViewer x:Name="_tv_scrollviewer_"
-                                      Background="{TemplateBinding Background}"
-                                      CanContentScroll="false"
-                                      Focusable="false"
-                                      HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
-                                      Padding="{TemplateBinding Padding}"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                      VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
-                            <ItemsPresenter />
-                        </ScrollViewer>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsEnabled"
-                                 Value="false">
-                            <Setter Property="Background"
-                                    TargetName="Bd"
-                                    Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-                        </Trigger>
-                        <Trigger Property="VirtualizingPanel.IsVirtualizing"
-                                 Value="true">
-                            <Setter Property="CanContentScroll"
-                                    TargetName="_tv_scrollviewer_"
-                                    Value="true" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="VirtualizingPanel.IsVirtualizing"
-                     Value="true">
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel />
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
     <Style x:Key="TreeViewItemFocusVisual">
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -83,10 +13,8 @@
             </Setter.Value>
         </Setter>
     </Style>
-
     <PathGeometry x:Key="TreeArrow"
                   Figures="M0,0 L0,6 L6,0 z" />
-
     <Style x:Key="ExpandCollapseToggleStyle"
            TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable"
@@ -104,8 +32,7 @@
                             Width="16">
                         <Path x:Name="ExpandPath"
                               Data="{StaticResource TreeArrow}"
-                              Fill="#FF62CD09"
-                              StrokeThickness="0"
+                              Fill="{StaticResource TreeViewItem.TreeArrow.Static.Fill}"
                               Stroke="{StaticResource TreeViewItem.TreeArrow.Static.Stroke}">
                             <Path.RenderTransform>
                                 <RotateTransform Angle="135"
@@ -127,7 +54,7 @@
                             </Setter>
                             <Setter Property="Fill"
                                     TargetName="ExpandPath"
-                                    Value="#FF62CD09" />
+                                    Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Fill}" />
                             <Setter Property="Stroke"
                                     TargetName="ExpandPath"
                                     Value="{StaticResource TreeViewItem.TreeArrow.Static.Checked.Stroke}" />
@@ -171,7 +98,7 @@
         <Setter Property="Padding"
                 Value="1,0,0,0" />
         <Setter Property="Foreground"
-                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+                Value="White" />
         <Setter Property="FocusVisualStyle"
                 Value="{StaticResource TreeViewItemFocusVisual}" />
         <Setter Property="Template">
@@ -224,11 +151,8 @@
                         </Trigger>
                         <Trigger Property="IsSelected"
                                  Value="true">
-                            <Setter Property="Background"
-                                    TargetName="Bd"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
                             <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                                    Value="LightGreen" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
@@ -237,9 +161,6 @@
                                 <Condition Property="IsSelectionActive"
                                            Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background"
-                                    TargetName="Bd"
-                                    Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
                             <Setter Property="Foreground"
                                     Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
                         </MultiTrigger>
@@ -265,4 +186,5 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

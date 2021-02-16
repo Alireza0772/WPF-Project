@@ -12,8 +12,9 @@
         <ResourceDictionary Source="BaseControlStyles/HeaderButtonStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/WindowStyle.xaml" />
         <ResourceDictionary Source="BaseControlStyles/TreeViewStyle.xaml" />
+        <ResourceDictionary Source="BaseControlStyles/UserControlStyle.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
-    
+
 </ResourceDictionary>
     

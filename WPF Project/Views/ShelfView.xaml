@@ -8,30 +8,11 @@
              xmlns:local="clr-namespace:WPFProject"
              mc:Ignorable="d"
              d:DesignHeight="450"
-             d:DesignWidth="800">
-    <UserControl.Style>
-        <Style TargetType="UserControl">
-            <Style.Triggers>
-                <Trigger Property="Visibility"
-                         Value="Visible">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                                 From="0.0"
-                                                 To="1.0"
-                                                 Duration="0:0:0.5" />
-                                <ThicknessAnimation Storyboard.TargetProperty="Margin"
-                                                    From="-50,0,80,20"
-                                                    To="10,0,20,20"
-                                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>
+             d:DesignWidth="800"
+             Style="{StaticResource UserControlStyle}">
+    <UserControl.Resources>
+        <local:SliderValuetoColorConverter x:Key="SliderValuetoColorConverter" />
+    </UserControl.Resources>
     <GroupBox Header="Shelf"
               Style="{StaticResource GroupBoxStyle}">
         <Grid>
@@ -48,7 +29,6 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Name="countLabel"
@@ -87,6 +67,7 @@
                      Style="{StaticResource TextBoxStyle}"
                      Text="{Binding Shelf.Level,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             <Slider Name="ShelfFloorSlider"
+                    Foreground="{Binding Value, Converter={StaticResource SliderValuetoColorConverter}, RelativeSource={RelativeSource Self}}"
                     Grid.Column="1"
                     Grid.ColumnSpan="3"
                     Grid.Row="3"
@@ -96,7 +77,9 @@
                     Style="{StaticResource SliderStyle}"
                     Value="{Binding Shelf.Floor, UpdateSourceTrigger=PropertyChanged}"
                     Maximum="100"
-                    LargeChange="10" />
+                    LargeChange="10"
+                    Background="#FFD64848"
+                    BorderBrush="#FF4BFF08" />
             <customControlLibrary:StarHandle Name="GreenHandle"
                                        Grid.Row="4"
                                        Grid.ColumnSpan="4"
@@ -128,7 +111,7 @@
             <Button Name="LibraryCancelButton"
                     Content="Cancel"
                     Margin="15"
-                    Grid.Row="7"
+                    Grid.Row="6"
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Center"
                     Style="{StaticResource CommonButtonStyle}"
@@ -136,7 +119,7 @@
             <Button Name="LibrarySaveButton"
                     Content="Save"
                     Margin="15"
-                    Grid.Row="7"
+                    Grid.Row="6"
                     Grid.Column="2"
                     Grid.ColumnSpan="2"
                     VerticalAlignment="Center"

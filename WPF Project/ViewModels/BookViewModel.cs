@@ -39,11 +39,11 @@ namespace WPFProject.ViewModels
 				return Enum.GetValues(typeof(BookLanguage)).Cast<BookLanguage>();
 			}
 		}
-		public BookViewModel()
+		public BookViewModel(Book model)
 		{
 			LoadCommand = new RelayCommand(x => LoadBook());
 			SaveCommand = new RelayCommand(x => SaveBook(), x => CanSave());
-			LoadBook();
+			Book = model;
 			Book.PropertyChanged += Book_PropertyChanged;
 		}
 
@@ -54,7 +54,7 @@ namespace WPFProject.ViewModels
 		private void LoadBook()
 		{
 			ServiceManager.Instance.Load();
-			Book = ServiceManager.Instance.Library.Shelves[0].Books.First();
+			Book = ServiceManager.Instance.Libraries[0].Shelves[0].Books.First();
 		}
 		private void SaveBook()
 		{

@@ -10,15 +10,9 @@ using System.Runtime.CompilerServices;
 
 namespace WPFProject.ViewModels
 {
-    public class ViewModelBase:INotifyPropertyChanged
+    public class ViewModelBase :ModelBase
     {
         public ICommand LoadCommand { get; set; }
         public ICommand SaveCommand { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

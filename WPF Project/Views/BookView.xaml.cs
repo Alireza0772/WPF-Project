@@ -21,7 +21,6 @@ namespace WPFProject.Views
     /// </summary>
     public partial class BookView : UserControl
     {
-        BookViewModel bookViewModel = new BookViewModel();
         public BookView()
         {
             InitializeComponent();
